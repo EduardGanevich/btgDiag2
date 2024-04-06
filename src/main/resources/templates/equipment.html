@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<style>
+    table {
+        width: 100%; /* Чтобы таблица заполняла всю доступную ширину */
+        border-collapse: collapse; /* Для объединения рамок ячеек */
+    }
+    th, td {
+        text-align: center; /* Выравнивание текста по центру в ячейках */
+        padding: 8px; /* Отступ вокруг содержимого ячеек */
+        border: 1px solid black; /* Границы ячеек */
+    }
+</style>
+
+<head>
+    <title>Оборудование и технические устройства</title>
+</head>
+<body>
+<h2 th:text="${equip.equipmentType} 'зав.№' ${equip.serialNumber}"/>
+
+<br>
+<table>
+    <tr>
+        <th>Номер</th>
+        <th>Филиал</th>
+        <th>Служба</th>
+        <th>Тип оборудования</th>
+        <th>Место установки</th>
+        <th>Завдоской номер</th>
+        <th>Инвентарный номер</th>
+        <th>Регистрационный номер</th>
+        <th>Дата ввода в эксплуатацию</th>
+        <th>Установленный срок службы</th>
+        <th>Наличие паспорта</th>
+        <th>Отчеты</th>
+
+    </tr>
+    <tr th:each="equip:${equipment}">
+
+        <td th:text="${equip.id}"/>
+        <td th:text="${equip.filial.title}"/>
+        <td th:text="${equip.department.geTitle()}"/>
+        <td th:text="${equip.equipmentType}"/>
+        <td th:text="${equip.placeOfInstall}"/>
+        <td th:text="${equip.serialNumber}"/>
+        <td th:text="${equip.invNumber}"/>
+        <td th:text="${equip.regNumber}"/>
+        <td th:text="${equip.dateOfStartExpl}"/>
+        <td th:text="${equip.lifeResource}"/>
+        <td th:text="${equip.isPassport} ? 'есть': 'отсутствует'"/>
+        <td><a th:href="@{EquipmentReports/{id}(id=${equip.id})}" th:text="Отчеты"/></td>
+
+    </tr>
+
+
+
+
+</table>
+<br>
+<form th:action="@{/addNew}">
+    <input  type="submit" value="Add new equipment"/>
+</form>
+<br>
+</body>
+</html>

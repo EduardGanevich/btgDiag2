@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<style>
+    table {
+        width: 100%; /* Чтобы таблица заполняла всю доступную ширину */
+        border-collapse: collapse; /* Для объединения рамок ячеек */
+    }
+    th, td {
+        text-align: center; /* Выравнивание текста по центру в ячейках */
+        padding: 8px; /* Отступ вокруг содержимого ячеек */
+        border: 1px solid black; /* Границы ячеек */
+    }
+</style>
+
+<head>
+    <title>Создание новой записи оборудования</title>
+</head>
+<body>
+<h2>Введение данных новой единицы оборудования</h2>
+
+<br>
+<form method="post"  action="/saveEquipment" modelAttribute="equipment"/>
+
+<div class="form-group">
+<label>Филиал: </label>
+<select class="form-select selectpicker show-tick" th:field="*{equipment.filial}">
+<option value="">Филиал не выбран</option>
+<option th:each="filial : ${T(com.edganevich.btg.btgDiag.entities.Filial).values()}"
+        th:value="${filial}"
+        th:text="${filial.getTitle()}">
+</option>
+</select>
+</div>
+
+<br>
+
+<div class="form-group">
+    <label>Эксплуатирующая служба: </label>
+    <select class="form-select selectpicker show-tick" th:field="*{equipment.department}">
+        <option value="">Служба не выбрана</option>
+        <option th:each="department : ${T(com.edganevich.btg.btgDiag.entities.Department).values()}"
+                th:value="${department}"
+                th:text="${department.getTitle()}">
+        </option>
+    </select>
+</div>
+
+<br>
+
+<div class="form-group">
+    <label>Тип оборудования: </label>
+    <select class="form-select selectpicker show-tick" th:field="*{equipment.equipmentType}">
+        <option value="">Тип оборудования не выбран</option>
+        <option th:each="equipmentType : ${T(com.edganevich.btg.btgDiag.entities.EquipmentType).values()}"
+                th:value="${equipmentType}"
+                th:text="${equipmentType.getTitle()}">
+        </option>
+    </select>
+</div>
+<br>
+
+<br>
+<label>Место установки: </label>
+<input type="text" th:field="*{equipment.placeOfInstall}" required>
+<br>
+<label>Наименование объекта: </label>
+<input type="text" th:field="*{equipment.objectTitle}" required>
+<br>
+<label>Технологический номер: </label>
+<input type="text" th:field="*{equipment.objectTitleNumber}" required>
+<br>
+<label>Заводской номер: </label>
+<input type="text" th:field="*{equipment.serialNumber}" required>
+<br>
+<label>Инвентраный номер: </label>
+<input type="text" th:field="*{equipment.invNumber}">
+<br>
+<label>Регистрационный номер: </label>
+<input type="text" th:field="*{equipment.regNumber}">
+<br>
+<label>Год ввода в эксплуатацию: </label>
+<input type="number" th:field="*{equipment.dateOfStartExpl}"> <!--to check-->
+<br>
+<label>Установленный срок службы: </label>
+<input type="number" th:field="*{equipment.lifeResource}">
+<br>
+<label>Производитель: </label>
+<input type="text" th:field="*{equipment.equipmentPoducer}">
+<br>
+<div class="form-group">
+    <label>Наличие паспорта: </label>
+    <select class="form-control" th:field="*{equipment.isPassport}">
+        <option value="0"></option>
+        <option th:value="1" >да</option>
+        <option th:value="0" >нет</option>
+    </select>
+</div>
+    <br>
+<label>Диаметр: </label>
+<input type="text" th:field="*{equipment.equipmentPoducer}">
+<br>
+<label>Диаметр: </label>
+<input type="text" th:field="*{equipment.diameter}">
+<br>
+<label>Объем: </label>
+<input type="text" th:field="*{equipment.volume}">
+<br>
+<label>Длина: </label>
+<input type="text" th:field="*{equipment.length}">
+<br>
+<label>Количество патрубков, люков: </label>
+<input type="text" th:field="*{equipment.pipesQuantity}">
+<br>
+<label>Рабочее давление: </label>
+<input type="text" th:field="*{equipment.workPressure}">
+
+<br>
+<div class="form-group">
+    <label>Подземный СРПД: </label>
+    <select class="form-control" th:field="*{equipment.isUnderGround}">
+        <option value="0"></option>
+        <option th:value="1" >да</option>
+        <option th:value="0" >нет</option>
+    </select>
+
+</div>
+<br>
+<br>
+<br>
+<button type="submit">Добавить в базу данных</button>
+</form>
+
+
+</body>
+</html>

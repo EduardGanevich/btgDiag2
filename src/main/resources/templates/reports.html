@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<style>
+    table {
+        width: 100%; /* Чтобы таблица заполняла всю доступную ширину */
+        border-collapse: collapse; /* Для объединения рамок ячеек */
+    }
+    th, td {
+        text-align: center; /* Выравнивание текста по центру в ячейках */
+        padding: 8px; /* Отступ вокруг содержимого ячеек */
+        border: 1px solid black; /* Границы ячеек */
+    }
+</style>
+
+<head>
+    <title>Отчет</title>
+</head>
+<body>
+<h2>Отчеты для</h2>
+
+<br>
+
+<table>
+    <tr>
+        <th>Дата отчета</th>
+        <th>Номер отчета</th>
+        <th>Тип диагностики</th>
+        <th>Дата следующей диагностики / назначенный ресурс по результатам диагностики</th>
+        <th>Срок назначенного ресурса по результатам диагностики</th>
+        <th>Специализированная организация</th>
+        <th>Сканированная версия отчета</th>
+        <th>Внести изменения</th>
+    </tr>
+    <tr th:each="report:${reports}">
+    <td th:text="${#dates.format(report.dateOfReport, 'dd.MM.yyyy')}" />
+    <td th:text="${report.numberOfReport}"/>
+    <td th:text="${report.typeOfDiagnostic}"/>
+    <td th:text="${report.nextDiagDate}"/>
+    <td th:text="${report.lifeResourceByReport}"/>
+    <td th:text="${report.diagCompany.name}"/>
+    <td><a th:href="@{/showreport/{name}(name=${report.reportFileName})}" th:text="Просмотреть"/></td>
+    <td><a th:href="@{/editreport/{id}(id=${report.id})}" th:text="Изменить"/></td>
+    </tr>
+</table>
+<br>
+<form th:action="@{/addNewReport/{id}(id=${equipment.id})}">
+    <input  type="submit" value="Добавить отчет"/>
+</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<style>
+    table {
+        width: 100%; /* Чтобы таблица заполняла всю доступную ширину */
+        border-collapse: collapse; /* Для объединения рамок ячеек */
+    }
+    th, td {
+        text-align: center; /* Выравнивание текста по центру в ячейках */
+        padding: 8px; /* Отступ вокруг содержимого ячеек */
+        border: 1px solid cornflowerblue; /* Границы ячеек */
+    }
+</style>
+
+<head>
+    <title>Оборудование и технические устройства</title>
+</head>
+<body>
+<h2>Перечень оборудования</h2>
+
+<br>
+<table>
+    <tr>
+        <th>Номер</th>
+        <th>Филиал</th>
+        <th>Эксплуатирующая служба</th>
+        <th>Тип оборудования</th>
+        <th>Место установки</th>
+        <th>Наименование объекта</th>
+        <th>Технологический номер</th>
+        <th>Завдоской номер</th>
+        <th>Инвентарный номер</th>
+        <th>Регистрационный номер</th>
+        <th>Дата ввода в эксплуатацию</th>
+        <th>Установленный срок службы</th>
+        <th>Вид следующей диагностики</th>
+        <th>Дата следующей диагностики</th>
+        <th>Наличие паспорта</th>
+        <th>Отчеты</th>
+        <th>Производитель</th>
+        <th>Диаметр</th>
+        <th>Объем сосуда</th>
+        <th>Длина</th>
+        <th>Количество патрубков, люков</th>
+        <th>Рабочее давление</th>
+        <th>Подземная</th>
+
+          </tr>
+    <tr th:each="equip:${equipment}">
+
+        <td th:text="${equip.id}"/>
+        <td th:text="${equip.filial.title}"/>
+        <td th:text="${equip.department.title}"/>
+        <td th:text="${equip.equipmentType}"/>
+        <td th:text="${equip.placeOfInstall}"/>
+        <td th:text="${equip.objectTitle}"/>
+        <td th:text="${equip.objectTitleNumber}"/>
+        <td th:text="${equip.serialNumber}"/>
+        <td th:text="${equip.invNumber}"/>
+        <td th:text="${equip.regNumber}"/>
+        <td th:text="${#dates.format(equip.dateOfStartExpl, 'yyyy')}"/>
+        <td th:text="${equip.lifeResource}"/>
+        <td th:text="${equip.typeOfDiagnostic}"/>
+        <td th:text="${#dates.format(equip.nextDiagDate, 'dd.MM.yyyy')}"/>
+        <td th:text="${equip.isPassport} ? 'есть': 'отсутствует'"/>
+        <td><a th:href="@{EquipmentReports/{id}(id=${equip.id})}" th:text="Отчеты"/></td>
+        <td th:text="${equip.equipmentPoducer}"/>
+        <td th:text="${equip.diameter}"/>
+        <td th:text="${equip.volume}"/>
+        <td th:text="${equip.length}"/>
+        <td th:text="${equip.pipesQuantity}"/>
+        <td th:text="${equip.workPressure}"/>
+        <td th:text="${equip.isUnderGround} ? 'подземная': 'неподземная'"/>
+</tr>
+
+
+</table>
+<br>
+<form th:action="@{/addNewEquipment}">
+    <input  type="submit" value="Add new equipment"/>
+</form>
+<br>
+</body>
+</html>

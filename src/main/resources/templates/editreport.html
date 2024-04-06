@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<style>
+    table {
+        width: 100%; /* Чтобы таблица заполняла всю доступную ширину */
+        border-collapse: collapse; /* Для объединения рамок ячеек */
+    }
+    th, td {
+        text-align: center; /* Выравнивание текста по центру в ячейках */
+        padding: 8px; /* Отступ вокруг содержимого ячеек */
+        border: 1px solid black; /* Границы ячеек */
+    }
+</style>
+
+<head>
+    <title>Изменение отчета</title>
+</head>
+<body>
+<h2>Изменение отчета</h2>
+
+<br>
+<form th:method="post" th:action="@{/saveReport}" modelAttribute="report"/>
+
+<label>Дата отчета:</label>
+<input type="date" th:field="*{report.dateOfReport}" th:value="${report.dateOfReport}">
+<br>
+<label>Номер отчета:</label>
+<input type="text" th:field="*{report.numberOfReport}" >
+<br>
+<div class="form-group">
+    <label>Вид диагностики: </label>
+    <select class="form-select selectpicker show-tick" th:field="*{report.typeOfDiagnostic}">
+        <option value="">Вид диагностики не выбран</option>
+        <option th:each="typeOfDiagnostic : ${T(com.edganevich.btg.btgDiag.entities.TypeOfDiagnostic).values()}"
+                th:value="${typeOfDiagnostic}"
+                th:text="${typeOfDiagnostic.title}">
+        </option>
+    </select>
+</div>
+<br>
+<label>Назначенный срок службы по отчету:</label>
+<input type="number" th:field="*{report.lifeResourceByReport}">
+<br>
+<label>Дата следующей диагностики:</label>
+<input type="date" th:field="*{report.nextDiagDate}">
+<br>
+<div class="form-group">
+    <label>Диагностическая компания: </label>
+    <select class="form-select selectpicker show-tick" th:field="*{report.diagCompany}">
+<!--        <option value="">Компания не выбрана</option>-->
+<!--        <option th:each="diagCompany:${diagCompanyList}"-->
+<!--                th:value="${diagCompany}"-->
+<!--                th:text="${diagCompany.name}">-->
+<!--        </option>-->
+    </select>
+</div>
+<br>
+<div class="col-md-8 mx-auto">
+    <h2>Загрузка сканированной версии отчета</h2>
+    <!--    <p th:text="${msg}" th:if="${msg ne null}" class="alert alert-primary"></p>-->
+    <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="file" name="report"  class="form-control-file">
+        </div>
+
+        <br>
+        <button type="submit">Сохранить</button>
+    </form>
+
+
+
+
+</body>
+</html>
