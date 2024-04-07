@@ -35,7 +35,8 @@ public class EquipmentService {
     if (equipment.getNextDiagDate()==null || equipment.getNextDiagDate().after(report.getNextDiagDate())) {
         equipment.setNextDiagDate(report.getNextDiagDate());
     equipmentRepository.save(equipment);
+        }
     }
-    }
+
 
 }

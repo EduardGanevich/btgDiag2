@@ -14,23 +14,23 @@
 </style>
 
 <head>
-    <title>Создание новой записи оборудования</title>
+    <title>Изменение данных об оборудовании</title>
 </head>
 <body>
-<h2>Введение данных новой единицы оборудования</h2>
+<h2>Изменение данных об оборудовании</h2>
 
 <br>
-<form method="post"  action="/newEquipment" modelAttribute="equipment"/>
+<form method="post"  action="/saveEquipment" />
 
 <div class="form-group">
-<label>Филиал: </label>
-<select class="form-select selectpicker show-tick" th:field="*{equipment.filial}">
-<option value="">Филиал не выбран</option>
-<option th:each="filial : ${T(com.edganevich.btg.btgDiag.entities.Filial).values()}"
-        th:value="${filial}"
-        th:text="${filial.getTitle()}">
-</option>
-</select>
+    <label>Филиал: </label>
+    <select class="form-select selectpicker show-tick" th:field="*{equipment.filial}">
+        <option value="">Филиал не выбран</option>
+        <option th:each="filial : ${T(com.edganevich.btg.btgDiag.entities.Filial).values()}"
+                th:value="${filial}"
+                th:text="${filial.getTitle()}">
+        </option>
+    </select>
 </div>
 <br>
 <div class="form-group">
@@ -97,7 +97,7 @@
         <option th:value="0" >нет</option>
     </select>
 </div>
-    <br>
+<br>
 <label>Диаметр: </label>
 <input type="number" step="0.1" th:field="*{equipment.diameter}">
 <br>
@@ -126,9 +126,7 @@
 <br>
 <br>
 <br>
-<button type="submit">Создать</button>
+<button type="submit">Сохранить измененния</button>
 </form>
-
-
 </body>
 </html>

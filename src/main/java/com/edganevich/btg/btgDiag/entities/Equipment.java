@@ -3,6 +3,8 @@ package com.edganevich.btg.btgDiag.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.*;
 import javax.persistence.*;
 
@@ -50,6 +52,7 @@ public class Equipment {
     private String regNumber;
 
     @Column(name = "date_of_start_expl")
+    @DateTimeFormat(pattern = "yyyy")
     private Date dateOfStartExpl;
 
     @Column(name = "life_resource")
@@ -66,7 +69,7 @@ public class Equipment {
     private Boolean isPassport;
 
     @Column(name = "equipment_producer")
-    private String equipmentPoducer;
+    private String equipmentProducer;
 
     @OneToMany(mappedBy="equipment")
     private List<DiagReport> reportList;
@@ -74,10 +77,10 @@ public class Equipment {
     // Only for SRPD
 
     @Column(name = "diameter")
-    private Integer diameter;
+    private Double diameter;
 
     @Column(name = "length")
-    private Integer length;
+    private Double length;
 
     @Column(name = "volume")
     private Double volume;

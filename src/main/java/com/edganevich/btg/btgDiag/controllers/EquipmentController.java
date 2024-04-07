@@ -1,15 +1,11 @@
 package com.edganevich.btg.btgDiag.controllers;
 
-
-import com.edganevich.btg.btgDiag.DAO.DiagCompanyRepository;
 import com.edganevich.btg.btgDiag.Service.DiagCompanyService;
 import com.edganevich.btg.btgDiag.Service.DiagReportService;
 import com.edganevich.btg.btgDiag.Service.EquipmentService;
 import com.edganevich.btg.btgDiag.entities.DiagCompany;
 import com.edganevich.btg.btgDiag.entities.DiagReport;
 import com.edganevich.btg.btgDiag.entities.Equipment;
-
-
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,9 +28,38 @@ public class EquipmentController {
     @GetMapping("/Allequip")
     public String getAll(Model model) {
         List<Equipment> allEquipments = equipmentService.getAllEquipment();
-        model.addAttribute("equipment", allEquipments);
+        model.addAttribute("equipments", allEquipments);
         return "all-equip";
     }
+
+    @GetMapping("/addNewEquipment")
+    public String showCreateEquipmentForm(Model model) {
+        Equipment equipment = new Equipment();
+        model.addAttribute("equipment", equipment);
+        return "createnewequipment";
+    }
+
+    @PostMapping("/newEquipment")
+    public String showNewEquipment(@ModelAttribute("equipment") Equipment equipment, Model model) {
+    equipmentService.save(equipment);
+    model.addAttribute("equipment", equipment);
+        return "newEquipment";
+    }
+
+    @GetMapping("/editEquipment/{id}")
+    public String editEquipment(@PathVariable("id") Integer id, Model model) {
+        Equipment equipment = equipmentService.findEquipmentById(id);
+      model.addAttribute("equipment", equipment);
+      return "editEquipment";
+    }
+
+    @PostMapping("/saveEquipment")
+    public String showEquipment(@ModelAttribute("equipment") Equipment equipment, Model model) {
+       equipmentService.save(equipment);
+        model.addAttribute("equipment", equipment);
+        return "equipment";
+    }
+
 
     @GetMapping("/EquipmentReports/{id}")
     public String showReportsById(@PathVariable("id") Integer id, Model model) {
@@ -45,24 +70,9 @@ public class EquipmentController {
         return "reports";
     }
 
-    @GetMapping("/addNewEquipment")
-    public String showCreateEquipmentForm(Model model) {
-        Equipment equipment = new Equipment();
-        model.addAttribute("equipment", equipment);
-        return "createnewequipment";
-    }
-
-    @PostMapping("/saveEquipment")
-        public String saveEquipment(@ModelAttribute("equipment") Equipment equipment){
-        System.out.println(equipment);
-        equipmentService.save(equipment);
-        return "all-equip"; // do redirect to equipment/id
-    }
-
-
     @GetMapping("/Equipment/{id}")
     public String showEquipment(@PathVariable("id") Integer id, Model model) {
-        Equipment equipment = equipmentService.findEquipmentById(id);
+       Equipment equipment = equipmentService.findEquipmentById(id);
         model.addAttribute("equipment", equipment);
         return "equipment";
     }

@@ -1,24 +1,24 @@
 package com.edganevich.btg.btgDiag.entities;
 
 public enum ObjectTitle {
-    ABSORBER("Абсорбер"),
-    AVO ("АВО Газа"),
-    AVOTT ("ТТ АВО"),
-    AVTOKRAN("Автомобильный кран"),
-    AGNKS("АГНКС"),
     ABK("Административно-бытовой корпус"),
-    ABZ("Админисктративно-бытовое здание"),
-    ACCUM("Аккумулятор");
+    ABSORBER("Абсорбер"),
+    ABZ("Административно-бытовое здание"),
+    ACCUM("Аккумулятор"),
+    AGNKS("АГНКС"),
+    AVO("АВО Газа"),
+    AVOTT("ТТ АВО"),
+    AVTOKRAN("Автомобильный кран");
 
 
-    private final String title;
+    private final String rusTitle;
 
-    ObjectTitle(String title) {
-        this.title = title;
+    ObjectTitle(String rusTitle) {
+        this.rusTitle = rusTitle;
     }
 
     public String getTitle() {
-        return title;
+        return rusTitle;
     }
 
-    }
+}

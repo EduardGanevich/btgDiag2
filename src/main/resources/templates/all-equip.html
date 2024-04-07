@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+<link rel="stylesheet" type="text/css" href="main.css"/>
+
 <style>
     table {
         width: 100%; /* Чтобы таблица заполняла всю доступную ширину */
@@ -20,7 +22,7 @@
 <h2>Перечень оборудования</h2>
 
 <br>
-<table>
+<table class="table table-striped table-bordered">
     <tr>
         <th>Номер</th>
         <th>Филиал</th>
@@ -29,7 +31,7 @@
         <th>Место установки</th>
         <th>Наименование объекта</th>
         <th>Технологический номер</th>
-        <th>Завдоской номер</th>
+        <th>Заводской номер</th>
         <th>Инвентарный номер</th>
         <th>Регистрационный номер</th>
         <th>Дата ввода в эксплуатацию</th>
@@ -47,12 +49,12 @@
         <th>Подземная</th>
 
           </tr>
-    <tr th:each="equip:${equipment}">
+    <tr th:each="equip:${equipments}">
 
         <td th:text="${equip.id}"/>
         <td th:text="${equip.filial.title}"/>
         <td th:text="${equip.department.title}"/>
-        <td th:text="${equip.equipmentType}"/>
+        <td th:text="${equip.equipmentType.title}"/>
         <td th:text="${equip.placeOfInstall}"/>
         <td th:text="${equip.objectTitle}"/>
         <td th:text="${equip.objectTitleNumber}"/>
@@ -65,13 +67,18 @@
         <td th:text="${#dates.format(equip.nextDiagDate, 'dd.MM.yyyy')}"/>
         <td th:text="${equip.isPassport} ? 'есть': 'отсутствует'"/>
         <td><a th:href="@{EquipmentReports/{id}(id=${equip.id})}" th:text="Отчеты"/></td>
-        <td th:text="${equip.equipmentPoducer}"/>
+        <td th:text="${equip.equipmentProducer}"/>
         <td th:text="${equip.diameter}"/>
         <td th:text="${equip.volume}"/>
         <td th:text="${equip.length}"/>
         <td th:text="${equip.pipesQuantity}"/>
         <td th:text="${equip.workPressure}"/>
         <td th:text="${equip.isUnderGround} ? 'подземная': 'неподземная'"/>
+        <td>
+        <form th:action="@{/editEquipment/{id}(id=${equip.id})}" method ="get">
+            <input  type="submit" value="Изменить"/>
+        </form>
+        </td>
 </tr>
 
 

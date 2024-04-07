@@ -9,7 +9,7 @@
     th, td {
         text-align: center; /* Выравнивание текста по центру в ячейках */
         padding: 8px; /* Отступ вокруг содержимого ячеек */
-        border: 1px solid black; /* Границы ячеек */
+        border: 1px solid cornflowerblue; /* Границы ячеек */
     }
 </style>
 
@@ -17,49 +17,70 @@
     <title>Оборудование и технические устройства</title>
 </head>
 <body>
-<h2 th:text="${equip.equipmentType} 'зав.№' ${equip.serialNumber}"/>
 
 <br>
-<table>
+<table class="table table-striped table-bordered">
     <tr>
         <th>Номер</th>
         <th>Филиал</th>
-        <th>Служба</th>
+        <th>Эксплуатирующая служба</th>
         <th>Тип оборудования</th>
         <th>Место установки</th>
-        <th>Завдоской номер</th>
+        <th>Наименование объекта</th>
+        <th>Технологический номер</th>
+        <th>Заводской номер</th>
         <th>Инвентарный номер</th>
         <th>Регистрационный номер</th>
         <th>Дата ввода в эксплуатацию</th>
         <th>Установленный срок службы</th>
+        <th>Вид следующей диагностики</th>
+        <th>Дата следующей диагностики</th>
         <th>Наличие паспорта</th>
         <th>Отчеты</th>
-
-    </tr>
-    <tr th:each="equip:${equipment}">
-
-        <td th:text="${equip.id}"/>
-        <td th:text="${equip.filial.title}"/>
-        <td th:text="${equip.department.geTitle()}"/>
-        <td th:text="${equip.equipmentType}"/>
-        <td th:text="${equip.placeOfInstall}"/>
-        <td th:text="${equip.serialNumber}"/>
-        <td th:text="${equip.invNumber}"/>
-        <td th:text="${equip.regNumber}"/>
-        <td th:text="${equip.dateOfStartExpl}"/>
-        <td th:text="${equip.lifeResource}"/>
-        <td th:text="${equip.isPassport} ? 'есть': 'отсутствует'"/>
-        <td><a th:href="@{EquipmentReports/{id}(id=${equip.id})}" th:text="Отчеты"/></td>
+        <th>Производитель</th>
+        <th>Диаметр</th>
+        <th>Объем сосуда</th>
+        <th>Длина</th>
+        <th>Количество патрубков, люков</th>
+        <th>Рабочее давление</th>
+        <th>Подземная</th>
 
     </tr>
 
 
+    <td th:text="${equipment.id}"/>
+    <td th:text="${equipment.filial.title}"/>
+    <td th:text="${equipment.department.title}"/>
+    <td th:text="${equipment.equipmentType.title}"/>
+    <td th:text="${equipment.placeOfInstall}"/>
+    <td th:text="${equipment.objectTitle}"/>
+    <td th:text="${equipment.objectTitleNumber}"/>
+    <td th:text="${equipment.serialNumber}"/>
+    <td th:text="${equipment.invNumber}"/>
+    <td th:text="${equipment.regNumber}"/>
+    <td th:text="${#dates.format(equipment.dateOfStartExpl, 'yyyy')}"/>
+    <td th:text="${equipment.lifeResource}"/>
+    <td th:text="${equipment.typeOfDiagnostic}"/>
+    <td th:text="${#dates.format(equipment.nextDiagDate, 'dd.MM.yyyy')}"/>
+    <td th:text="${equipment.isPassport} ? 'есть': 'отсутствует'"/>
+    <td><a th:href="@{EquipmentReports/{id}(id=${equipment.id})}" th:text="Отчеты"/></td>
+    <td th:text="${equipment.equipmentProducer}"/>
+    <td th:text="${equipment.diameter}"/>
+    <td th:text="${equipment.volume}"/>
+    <td th:text="${equipment.length}"/>
+    <td th:text="${equipment.pipesQuantity}"/>
+    <td th:text="${equipment.workPressure}"/>
+    <td th:text="${equipment.isUnderGround} ? 'подземная': 'неподземная'"/>
+    </tr>
 
 
 </table>
 <br>
-<form th:action="@{/addNew}">
-    <input  type="submit" value="Add new equipment"/>
+<form th:action="@{/editEquipment/{id}(id=${equipment.id})}" method ="get" >
+    <input  type="submit" value="Изменить"/>
+</form>
+<form th:action="@{/Allequip}" method ="get">
+    <input  type="submit" value="Вернуться к базе данных"/>
 </form>
 <br>
 </body>

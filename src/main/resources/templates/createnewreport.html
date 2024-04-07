@@ -20,7 +20,7 @@
 <h2>Добавление нового или изменение отчета</h2>
 
 <br>
-<form th:method="post" th:action="@{/upload}" enctype="multipart/form-data"/>
+<form th:method="post" th:action="@{/upload}"  modelAttribute="report">
 <label>Дата отчета:</label>
 <input type="date" th:field="*{report.dateOfReport}">
 <br>
@@ -55,13 +55,13 @@
     </select>
 </div>
 <br>
-<!--<div class="col-md-8 mx-auto">-->
-    <h4>Загрузка отчета</h4>
-    <!--    <p th:text="${msg}" th:if="${msg ne null}" class="alert alert-primary"></p>-->
-<!--    <form method="post" th:action="@{/upload}" enctype="multipart/form-data">-->
-<!--        <div class="form-group">-->
-            <input type="file" name="report"  class="form-control-file">
-<!--        </div>-->
+<!--&lt;!&ndash;<div class="col-md-8 mx-auto">&ndash;&gt;-->
+<!--    <h4>Загрузка отчета</h4>-->
+<!--    &lt;!&ndash;    <p th:text="${msg}" th:if="${msg ne null}" class="alert alert-primary"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <form method="post" th:action="@{/upload}" enctype="multipart/form-data">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+<!--            <input type="file" name="report"  class="form-control-file">-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
 
 <br>
 <br>
